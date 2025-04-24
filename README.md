@@ -72,7 +72,7 @@ La aplicación se comunica con la API disponible en `https://itx-frontend-test.o
 
 1. Clona este repositorio:
 ```bash
-git clone https://github.com/tu-usuario/mobile-shop.git
+git clone https://github.com/Enriquedonaire/Inditex-Mobile-Shop.git
 cd mobile-shop
 ```
 
