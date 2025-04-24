@@ -1,16 +1,20 @@
-export default function ProductCard({ product = {}, onClick }) {
+export default function ProductCard({ product = {}, onClick = () => {} }) {
+  // Si product es null o undefined, mostrar una tarjeta vacía o retornar null
   if (!product) return null;
   
   return (
     <div
-      className="bg-card rounded-lg shadow-md overflow-hidden cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02] border border-border"
+      className="bg-card rounded-lg shadow-md overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.05] border border-border"
       onClick={onClick}
     >
-      <div className="relative h-48 bg-muted flex items-center justify-center p-4">
+      <div className="relative h-48 bg-white flex items-center justify-center p-4 overflow-hidden">
         <img
           src={product.imgUrl || "/placeholder.svg"}
           alt={`${product.brand || ''} ${product.model || ''}`}
-          className="w-full h-full object-contain"
+          className="w-full h-full object-contain transition-transform duration-300"
+          style={{ transform: 'scale(0.9)' }}
+          onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+          onMouseOut={(e) => e.currentTarget.style.transform = 'scale(0.9)'}
         />
       </div>
       <div className="p-4">
