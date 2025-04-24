@@ -51,7 +51,19 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      transitionProperty: {
+        'none': 'none',
+      },
+      transitionDuration: {
+        '0': '0ms',
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
+  // Configuración para desactivar transiciones en ciertos elementos
+  variants: {
+    extend: {
+      transitionProperty: ['responsive', 'motion-safe', 'motion-reduce'],
+    },
+  },
 }
