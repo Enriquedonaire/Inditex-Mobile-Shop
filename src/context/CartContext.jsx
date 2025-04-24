@@ -24,25 +24,30 @@ export function CartProvider({ children }) {
   // Cargar carrito desde localStorage al iniciar
   useEffect(() => {
     const storedCart = localStorage.getItem("cartItems")
-    const storedCount = localStorage.getItem("cartCount")
-
+    
     if (storedCart) {
       try {
-        setCartItems(JSON.parse(storedCart))
+        const parsedItems = JSON.parse(storedCart);
+        setCartItems(parsedItems);
+        
+        // Calcular el contador basado en la cantidad total de productos
+        const totalCount = parsedItems.reduce((total, item) => total + item.quantity, 0);
+        setCartCount(totalCount);
       } catch (error) {
         console.error("Error parsing cart items from localStorage:", error)
         setCartItems([])
+        setCartCount(0);
       }
-    }
-
-    if (storedCount) {
-      setCartCount(Number.parseInt(storedCount, 10))
     }
   }, [])
 
   // Guardar carrito en localStorage cuando cambie
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems))
+    
+    // Actualizar el contador en localStorage
+    const totalCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+    localStorage.setItem("cartCount", totalCount.toString());
   }, [cartItems])
 
   // Añadir producto al carrito
@@ -70,33 +75,37 @@ export function CartProvider({ children }) {
         (item) => item.productId === product.id && item.colorCode === colorCode && item.storageCode === storageCode,
       )
 
+      let updatedItems;
+      
       if (existingItemIndex >= 0) {
         // Si existe, incrementar la cantidad
-        const updatedItems = [...prevItems]
-        updatedItems[existingItemIndex].quantity += 1
-        return updatedItems
+        updatedItems = [...prevItems];
+        updatedItems[existingItemIndex].quantity += 1;
       } else {
         // Si no existe, añadir nuevo item
-        return [...prevItems, newItem]
+        updatedItems = [...prevItems, newItem];
       }
+      
+      // Calcular el nuevo contador total
+      const newTotalCount = updatedItems.reduce((total, item) => total + item.quantity, 0);
+      setCartCount(newTotalCount);
+      
+      return updatedItems;
     })
 
-    setCartCount((prevCount) => prevCount + 1)
-    localStorage.setItem("cartCount", (cartCount + 1).toString())
     setIsCartOpen(true)
   }
 
   // Eliminar producto del carrito
   const removeFromCart = (itemId) => {
     setCartItems((prevItems) => {
-      const itemToRemove = prevItems.find((item) => item.id === itemId)
-      if (!itemToRemove) return prevItems
-
-      const newCount = cartCount - itemToRemove.quantity
-      setCartCount(newCount)
-      localStorage.setItem("cartCount", newCount.toString())
-
-      return prevItems.filter((item) => item.id !== itemId)
+      const updatedItems = prevItems.filter((item) => item.id !== itemId);
+      
+      // Calcular el nuevo contador total
+      const newTotalCount = updatedItems.reduce((total, item) => total + item.quantity, 0);
+      setCartCount(newTotalCount);
+      
+      return updatedItems;
     })
   }
 
@@ -107,17 +116,16 @@ export function CartProvider({ children }) {
     setCartItems((prevItems) => {
       const updatedItems = prevItems.map((item) => {
         if (item.id === itemId) {
-          const quantityDiff = newQuantity - item.quantity
-          setCartCount((prevCount) => {
-            const newCount = prevCount + quantityDiff
-            localStorage.setItem("cartCount", newCount.toString())
-            return newCount
-          })
-          return { ...item, quantity: newQuantity }
+          return { ...item, quantity: newQuantity };
         }
-        return item
-      })
-      return updatedItems
+        return item;
+      });
+      
+      // Calcular el nuevo contador total
+      const newTotalCount = updatedItems.reduce((total, item) => total + item.quantity, 0);
+      setCartCount(newTotalCount);
+      
+      return updatedItems;
     })
   }
 
