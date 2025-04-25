@@ -34,22 +34,43 @@ He desarrollado una aplicación web SPA (Single Page Application) para la compra
 src/
 ├── components/         # Componentes reutilizables
 │   ├── Cart.jsx        # Componente del carrito lateral
+│   ├── ErrorDisplay.jsx # Componente para mostrar errores
 │   ├── Header.jsx      # Cabecera con navegación y carrito
+│   ├── ProductActions.jsx # Acciones de producto (selección de opciones)
 │   ├── ProductCard.jsx # Tarjeta de producto para el listado
+│   ├── ProductDescription.jsx # Descripción detallada del producto
+│   ├── ProductImage.jsx # Componente para mostrar la imagen del producto
 │   ├── ProductList.jsx # Lista de productos con grid responsive
-│   └── ...
+│   ├── SearchBar.jsx   # Barra de búsqueda para filtrar productos
+│   ├── ThemeToggle.jsx # Botón para cambiar entre modo claro y oscuro
+│   └── ui/             # Componentes de UI reutilizables
+│       ├── toast.jsx   # Sistema de notificaciones toast
+│       ├── toaster.jsx # Componente para mostrar notificaciones
+│       └── use-toast.js # Hook para usar el sistema de notificaciones
 ├── context/
 │   ├── CartContext.jsx # Contexto para gestión del carrito
 │   └── ThemeContext.jsx # Contexto para gestión del tema
 ├── hooks/
 │   └── useDebounce.js  # Hook personalizado para debounce en búsquedas
+├── lib/
+│   └── utils.js        # Funciones de utilidad
 ├── pages/
+│   ├── CheckoutPage.jsx # Página de proceso de compra
 │   ├── HomePage.jsx    # Página principal con listado de productos
+│   ├── NotFoundPage.jsx # Página de error 404
 │   ├── ProductDetailPage.jsx # Página de detalle de producto
-│   └── CheckoutPage.jsx # Página de proceso de compra
+│   └── ProductListPage.jsx # Componente para la lista de productos
 ├── services/
 │   └── api.js          # Servicios para comunicación con la API
-└── ...
+├── App.jsx             # Componente principal de la aplicación
+├── index.css           # Estilos globales
+├── main.jsx           # Punto de entrada de la aplicación
+├── index.html          # Archivo HTML principal
+├── vite.config.js      # Configuración de Vite
+├── tailwind.config.js  # Configuración de Tailwind CSS
+├── postcss.config.js   # Configuración de PostCSS
+├── package.json        # Dependencias y scripts
+└── README.md           # Documentación del proyecto
 ```
 
 ## API Utilizada
@@ -74,7 +95,6 @@ La aplicación se comunica con la API disponible en `https://itx-frontend-test.o
 ```bash
 git clone https://github.com/Enriquedonaire/Inditex-Mobile-Shop.git
 cd mobile-shop
-```
 
 2. Instala las dependencias:
 ```bash

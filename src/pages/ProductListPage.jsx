@@ -1,4 +1,4 @@
-import ProductCard from "./ProductCard"
+import ProductCard from "../components/ProductCard"
 
 export default function ProductList({ products = [], onProductClick }) {
   // Añadimos un valor por defecto para products (array vacío)
