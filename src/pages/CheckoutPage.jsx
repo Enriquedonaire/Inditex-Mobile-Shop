@@ -112,87 +112,93 @@ export default function CheckoutPage() {
         {step === "checkout" && (
           <div className="grid md:grid-cols-3 gap-8">
             <div className="md:col-span-2">
-              <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Checkout</h1>
+              <h1 className="text-2xl font-bold mb-6 dark:text-white">Checkout</h1>
 
               <form onSubmit={handleSubmit} className="space-y-8">
                 <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-                  <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Shipping Information</h2>
+                  <h2 className="text-lg font-semibold mb-4 dark:text-gray-200">Shipping Information</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
                       <input
                         type="text"
                         name="name"
+                        id="name"
                         value={formData.name}
                         onChange={handleChange}
-                        className={`w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                          errors.name ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                        className={`w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 ${
+                          errors.name ? "border-red-500" : "border-gray-300"
                         }`}
                       />
                       {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
                       <input
                         type="email"
                         name="email"
+                        id="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className={`w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                          errors.email ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                        className={`w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 ${
+                          errors.email ? "border-red-500" : "border-gray-300"
                         }`}
                       />
                       {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                     </div>
                     <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Address</label>
+                      <label htmlFor="address" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Address</label>
                       <input
                         type="text"
                         name="address"
+                        id="address"
                         value={formData.address}
                         onChange={handleChange}
-                        className={`w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                          errors.address ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                        className={`w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 ${
+                          errors.address ? "border-red-500" : "border-gray-300"
                         }`}
                       />
                       {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address}</p>}
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">City</label>
+                      <label htmlFor="city" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">City</label>
                       <input
                         type="text"
                         name="city"
+                        id="city"
                         value={formData.city}
                         onChange={handleChange}
-                        className={`w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                          errors.city ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                        className={`w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 ${
+                          errors.city ? "border-red-500" : "border-gray-300"
                         }`}
                       />
                       {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">ZIP Code</label>
+                        <label htmlFor="zip" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">ZIP Code</label>
                         <input
                           type="text"
                           name="zip"
+                          id="zip"
                           value={formData.zip}
                           onChange={handleChange}
-                          className={`w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                            errors.zip ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                          className={`w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 ${
+                            errors.zip ? "border-red-500" : "border-gray-300"
                           }`}
                         />
                         {errors.zip && <p className="text-red-500 text-xs mt-1">{errors.zip}</p>}
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Country</label>
+                        <label htmlFor="country" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Country</label>
                         <input
                           type="text"
                           name="country"
+                          id="country"
                           value={formData.country}
                           onChange={handleChange}
-                          className={`w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                            errors.country ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                          className={`w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 ${
+                            errors.country ? "border-red-500" : "border-gray-300"
                           }`}
                         />
                         {errors.country && <p className="text-red-500 text-xs mt-1">{errors.country}</p>}
@@ -202,10 +208,10 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-                  <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Payment Information</h2>
+                  <h2 className="text-lg font-semibold mb-4 dark:text-gray-200">Payment Information</h2>
                   <div className="mb-4">
                     <div className="flex items-center justify-between mb-2">
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Card Number</label>
+                      <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Card Number</label>
                       <div className="flex items-center">
                         <CreditCard className="h-5 w-5 text-gray-400 mr-1" />
                         <span className="text-xs text-gray-500 dark:text-gray-400">Secure payment</span>
@@ -214,53 +220,57 @@ export default function CheckoutPage() {
                     <input
                       type="text"
                       name="cardNumber"
+                      id="cardNumber"
                       value={formData.cardNumber}
                       onChange={handleChange}
                       placeholder="1234 5678 9012 3456"
-                      className={`w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                        errors.cardNumber ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                      className={`w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 ${
+                        errors.cardNumber ? "border-red-500" : "border-gray-300"
                       }`}
                     />
                     {errors.cardNumber && <p className="text-red-500 text-xs mt-1">{errors.cardNumber}</p>}
                   </div>
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name on Card</label>
+                    <label htmlFor="cardName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name on Card</label>
                     <input
                       type="text"
                       name="cardName"
+                      id="cardName"
                       value={formData.cardName}
                       onChange={handleChange}
-                      className={`w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                        errors.cardName ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                      className={`w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 ${
+                        errors.cardName ? "border-red-500" : "border-gray-300"
                       }`}
                     />
                     {errors.cardName && <p className="text-red-500 text-xs mt-1">{errors.cardName}</p>}
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Expiry Date</label>
+                      <label htmlFor="expiry" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Expiry Date</label>
                       <input
                         type="text"
                         name="expiry"
+                        id="expiry"
                         value={formData.expiry}
                         onChange={handleChange}
                         placeholder="MM/YY"
-                        className={`w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                          errors.expiry ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                        className={`w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 ${
+                          errors.expiry ? "border-red-500" : "border-gray-300"
                         }`}
                       />
                       {errors.expiry && <p className="text-red-500 text-xs mt-1">{errors.expiry}</p>}
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CVC</label>
+                      <label htmlFor="cvc" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CVC</label>
                       <input
                         type="text"
                         name="cvc"
+                        id="cvc"
                         value={formData.cvc}
                         onChange={handleChange}
                         placeholder="123"
-                        className={`w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                          errors.cvc ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                        className={`w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 ${
+                          errors.cvc ? "border-red-500" : "border-gray-300"
                         }`}
                       />
                       {errors.cvc && <p className="text-red-500 text-xs mt-1">{errors.cvc}</p>}
@@ -269,10 +279,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="flex justify-end">
-                  <button 
-                    type="submit" 
-                    className="px-6 py-3 bg-gray-900 dark:bg-gray-700 text-white rounded-md hover:bg-gray-800 dark:hover:bg-gray-600"
-                  >
+                  <button type="submit" className="px-6 py-3 bg-gray-900 text-white rounded-md hover:bg-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600">
                     Complete Order
                   </button>
                 </div>
@@ -281,11 +288,11 @@ export default function CheckoutPage() {
 
             <div>
               <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow sticky top-20">
-                <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Order Summary</h2>
+                <h2 className="text-lg font-semibold mb-4 dark:text-gray-200">Order Summary</h2>
                 <div className="space-y-4 mb-4 max-h-80 overflow-y-auto">
                   {cartItems.map((item) => (
                     <div key={item.id} className="flex items-center">
-                      <div className="relative h-16 w-16 bg-gray-100 dark:bg-gray-700 rounded">
+                      <div className="relative h-16 w-16 bg-gray-100 rounded">
                         <img
                           src={item.imgUrl || "/placeholder.svg"}
                           alt={`${item.brand} ${item.model}`}
@@ -293,36 +300,34 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div className="ml-4 flex-1">
-                        <p className="font-medium text-sm text-gray-900 dark:text-white">
+                        <p className="font-medium text-sm dark:text-gray-200">
                           {item.brand} {item.model}
                         </p>
                         <p className="text-xs text-gray-500 dark:text-gray-400">
                           {item.colorName}, {item.storageName}
                         </p>
                         <div className="flex justify-between mt-1">
-                          <span className="text-xs text-gray-600 dark:text-gray-400">
+                          <span className="text-xs dark:text-gray-400">
                             {item.quantity} x ${item.price}
                           </span>
-                          <span className="text-sm font-medium text-gray-900 dark:text-white">
-                            ${(item.price * item.quantity).toFixed(2)}
-                          </span>
+                          <span className="text-sm font-medium dark:text-gray-200">${(item.price * item.quantity).toFixed(2)}</span>
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
-                <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+                <div className="border-t border-gray-200 dark:border-gray-600 pt-4">
                   <div className="flex justify-between mb-2">
                     <span className="text-gray-600 dark:text-gray-400">Subtotal</span>
-                    <span className="text-gray-900 dark:text-white">${getCartTotal().toFixed(2)}</span>
+                    <span className="dark:text-gray-200">${getCartTotal().toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between mb-2">
                     <span className="text-gray-600 dark:text-gray-400">Shipping</span>
-                    <span className="text-gray-900 dark:text-white">Free</span>
+                    <span className="dark:text-gray-200">Free</span>
                   </div>
                   <div className="flex justify-between font-bold text-lg mt-4">
-                    <span className="text-gray-900 dark:text-white">Total</span>
-                    <span className="text-gray-900 dark:text-white">${getCartTotal().toFixed(2)}</span>
+                    <span className="dark:text-white">Total</span>
+                    <span className="dark:text-white">${getCartTotal().toFixed(2)}</span>
                   </div>
                 </div>
               </div>
@@ -333,7 +338,7 @@ export default function CheckoutPage() {
         {step === "processing" && (
           <div className="flex flex-col items-center justify-center py-16">
             <Loader2 className="h-16 w-16 text-gray-900 dark:text-gray-100 animate-spin mb-4" />
-            <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Processing your order</h2>
+            <h2 className="text-2xl font-bold mb-2 dark:text-white">Processing your order</h2>
             <p className="text-gray-600 dark:text-gray-400">Please wait while we process your payment...</p>
           </div>
         )}
@@ -343,13 +348,13 @@ export default function CheckoutPage() {
             <div className="bg-green-100 dark:bg-green-900 rounded-full p-4 mb-6">
               <CheckCircle2 className="h-16 w-16 text-green-600 dark:text-green-400" />
             </div>
-            <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Order Successful!</h2>
+            <h2 className="text-2xl font-bold mb-2 dark:text-white">Order Successful!</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-8 text-center max-w-md">
               Thank you for your purchase. Your order has been processed successfully.
             </p>
             <button
               onClick={handleBackToProducts}
-              className="px-6 py-3 bg-gray-900 dark:bg-gray-700 text-white rounded-md hover:bg-gray-800 dark:hover:bg-gray-600"
+              className="px-6 py-3 bg-gray-900 text-white rounded-md hover:bg-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600"
             >
               Continue Shopping
             </button>

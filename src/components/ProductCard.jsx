@@ -2,10 +2,31 @@ export default function ProductCard({ product = {}, onClick = () => {} }) {
   // Si product es null o undefined, mostrar una tarjeta vacía o retornar null
   if (!product) return null;
   
+  // Función para manejar eventos de teclado
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onClick();
+    }
+  };
+
+  // Funciones para manejar el escalado de la imagen
+  const handleImageFocus = (e) => {
+    e.currentTarget.style.transform = 'scale(1.1)';
+  };
+  
+  const handleImageBlur = (e) => {
+    e.currentTarget.style.transform = 'scale(0.9)';
+  };
+  
   return (
     <div
       className="bg-card rounded-lg shadow-md overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.05] border border-border"
       onClick={onClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="button"
+      aria-label={`Ver detalles de ${product.brand || 'Unknown Brand'} ${product.model || 'Unknown Model'}`}
     >
       <div className="relative h-48 bg-white flex items-center justify-center p-4 overflow-hidden">
         <img
@@ -13,8 +34,10 @@ export default function ProductCard({ product = {}, onClick = () => {} }) {
           alt={`${product.brand || ''} ${product.model || ''}`}
           className="w-full h-full object-contain transition-transform duration-300"
           style={{ transform: 'scale(0.9)' }}
-          onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-          onMouseOut={(e) => e.currentTarget.style.transform = 'scale(0.9)'}
+          onMouseOver={handleImageFocus}
+          onMouseOut={handleImageBlur}
+          onFocus={handleImageFocus}
+          onBlur={handleImageBlur}
         />
       </div>
       <div className="p-4">
