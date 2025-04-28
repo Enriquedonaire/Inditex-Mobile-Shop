@@ -1,14 +1,14 @@
 const API_BASE_URL = "https://itx-frontend-test.onrender.com/api"
-const CACHE_EXPIRATION = 60 * 60 * 1000 // 1 hora en milisegundos
+const CACHE_EXPIRATION = 60 * 60 * 1000 
 
-// Helper function to check if cache is valid
+
 const isCacheValid = (timestamp) => {
   if (!timestamp) return false
   const now = new Date().getTime()
   return now - timestamp < CACHE_EXPIRATION
 }
 
-// Helper function to get cached data
+
 const getCachedData = (key) => {
   if (typeof window === "undefined") return null
 
@@ -27,7 +27,7 @@ const getCachedData = (key) => {
   }
 }
 
-// Helper function to set cached data
+
 const setCachedData = (key, data) => {
   if (typeof window === "undefined") return
 
@@ -42,7 +42,7 @@ const setCachedData = (key, data) => {
   }
 }
 
-// Fetch all products
+
 export const fetchProducts = async () => {
   const cacheKey = "products"
   const cachedProducts = getCachedData(cacheKey)
@@ -65,7 +65,7 @@ export const fetchProducts = async () => {
   }
 }
 
-// Fetch product details by ID
+
 export const fetchProductDetails = async (productId) => {
   const cacheKey = `product_${productId}`
   const cachedProduct = getCachedData(cacheKey)
@@ -88,7 +88,7 @@ export const fetchProductDetails = async (productId) => {
   }
 }
 
-// Add product to cart
+
 export const addToCart = async (productId, colorCode, storageCode) => {
   try {
     const response = await fetch(`${API_BASE_URL}/cart`, {
