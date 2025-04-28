@@ -57,6 +57,7 @@ export default function Cart() {
       <div
         ref={cartRef}
         className="bg-white dark:bg-gray-800 w-full max-w-md h-full flex flex-col shadow-xl transform transition-transform duration-300"
+        data-testid="cart"
       >
         <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">Your Cart</h2>

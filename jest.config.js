@@ -6,13 +6,14 @@ export default {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest'
+    '^.+\\.(js|jsx|mjs)$': 'babel-jest'  
   },
   testMatch: [
-    '**/_test/**/*.test.js?(x)',
-    '**/_test/**/*.spec.js?(x)',
+    '**/tests/**/*.test.js?(x)',
+    '**/tests/**/*.spec.js?(x)',
     '**/?(*.)+(spec|test).js?(x)'
   ],
+  testPathIgnorePatterns: ['<rootDir>/_test/'],
   collectCoverageFrom: [
     'src/**/*.{js,jsx}',
     '!src/main.jsx',
@@ -21,6 +22,6 @@ export default {
   ],
   moduleDirectories: ['node_modules', 'src'],
   transformIgnorePatterns: [
-    '/node_modules/(?!.*\\.mjs$)'
-  ]
+    '/node_modules/'
+  ],
 };

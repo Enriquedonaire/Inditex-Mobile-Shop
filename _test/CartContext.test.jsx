@@ -3,17 +3,15 @@ import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { CartProvider, useCart } from '../src/context/CartContext';
 
-// Revertir la eliminación de la importación redundante de CartProvider
-import { CartProvider } from '../src/context/CartContext';
-
-// Corrección: Asegurar que los valores iniciales del carrito estén correctamente simulados
 jest.mock('../src/context/CartContext', () => ({
   useCart: () => ({
     cartItems: [],
     cartCount: 0,
     cartTotal: 0,
     addToCart: jest.fn(),
-    clearCart: jest.fn()
+    clearCart: jest.fn(),
+    removeFromCart: jest.fn(),
+    getCartTotal: jest.fn().mockReturnValue(0)
   })
 }));
 
@@ -21,10 +19,8 @@ jest.mock('../src/services/api', () => ({
   addToCart: jest.fn().mockResolvedValue({ count: 1 })
 }));
 
-// Corrección adicional: Exportar correctamente el CartProvider
 export { CartProvider } from '../src/context/CartContext';
 
-// Corrección: Simular correctamente el almacenamiento local
 jest.spyOn(localStorage, 'getItem').mockImplementation((key) => {
   if (key === 'cart') return JSON.stringify([]);
   return null;

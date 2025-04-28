@@ -41,7 +41,7 @@ export default function ProductCard({ product = {}, onClick = () => {} }) {
         />
       </div>
       <div className="p-4">
-        <h3 className="text-lg font-semibold text-foreground">{product.brand || 'Unknown Brand'}</h3>
+        <h3 className="text-lg font-semibold text-foreground">{product.title || 'Unknown Product'}</h3>
         <p className="text-muted-foreground">{product.model || 'Unknown Model'}</p>
         <div className="mt-2 flex justify-between items-center">
           <p className="text-xl font-bold text-foreground">${product.price || '0.00'}</p>
