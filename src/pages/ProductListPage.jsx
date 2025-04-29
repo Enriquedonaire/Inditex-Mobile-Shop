@@ -1,7 +1,6 @@
 import ProductCard from "../components/ProductCard"
 
 export default function ProductList({ products = [], onProductClick }) {
-  // Añadimos un valor por defecto para products (array vacío)
   
   if (!products || products.length === 0) {
     return (

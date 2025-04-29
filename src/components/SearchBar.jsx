@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
-import useDebounce from "../hooks/useDebounce";
-import { Search } from 'lucide-react';
+import { useState, useEffect } from "react"
+import { useDebounce } from "../hooks/useDebounce"
+import { Search } from 'lucide-react'
 
 export default function SearchBar({ onSearch }) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  const [searchTerm, setSearchTerm] = useState("")
+  const debouncedSearchTerm = useDebounce(searchTerm, 300)
 
   useEffect(() => {
-    onSearch(debouncedSearchTerm);
-  }, [debouncedSearchTerm, onSearch]);
+    onSearch(debouncedSearchTerm)
+  }, [debouncedSearchTerm, onSearch])
 
   const handleChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
+    setSearchTerm(e.target.value)
+  }
 
   return (
     <div className="mb-8">
@@ -30,5 +30,5 @@ export default function SearchBar({ onSearch }) {
         />
       </div>
     </div>
-  );
+  )
 }

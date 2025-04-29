@@ -6,7 +6,7 @@ import ProductDescription from "../components/ProductDescription"
 import ProductActions from "../components/ProductActions"
 import { fetchProductDetails, addToCart } from "../services/api"
 import ErrorDisplay from "../components/ErrorDisplay"
-import { useToast } from "../components/ui/use-toast"
+import { useNotification } from "../components/ui/toast"
 import { useCart } from "../context/CartContext"
 
 export default function ProductDetailPage() {
@@ -17,14 +17,19 @@ export default function ProductDetailPage() {
   const navigate = useNavigate()
   const { id } = params
   const { addToCart: addToCartContext = () => {} } = useCart() || {}
-  // Obtener la función toast en el cuerpo del componente
-  const { toast } = useToast()
+  const { showNotification } = useNotification()
 
   useEffect(() => {
     const loadProductDetails = async () => {
       try {
+        if (!id) {
+          setError("Product ID is missing")
+          setIsLoading(false)
+          return
+        }
+        
         const data = await fetchProductDetails(id)
-        setProduct(data)
+        setProduct(data || null)
         setIsLoading(false)
       } catch (error) {
         console.error("Error loading product details:", error)
@@ -40,24 +45,27 @@ export default function ProductDetailPage() {
 
   const handleAddToCart = async (colorCode, storageCode) => {
     try {
+      if (!id || !product) return;
+      
       // Llamar a la API para actualizar el contador global
-      await addToCart(id, colorCode, storageCode)
+      const response = await addToCart(id, colorCode, storageCode)
 
       // Añadir al contexto del carrito
       addToCartContext(product, colorCode, storageCode)
 
-      // Usar la función toast que ya obtuvimos en el cuerpo del componente
-      toast({
-        title: "Added to cart",
-        description: "Product has been added to your cart",
+      showNotification({
+        type: 'success',
+        title: 'Added to cart',
+        message: `${product.brand} ${product.model} has been added to your cart`,
+        duration: 2000
       })
     } catch (error) {
       console.error("Error adding to cart:", error)
-      // Usar la función toast que ya obtuvimos en el cuerpo del componente
-      toast({
-        title: "Error",
-        description: "Failed to add product to cart. Please try again.",
-        variant: "destructive",
+      showNotification({
+        type: 'error',
+        title: 'Error',
+        message: 'Failed to add product to cart. Please try again.',
+        duration: 3000
       })
     }
   }
@@ -68,7 +76,7 @@ export default function ProductDetailPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen bg-background">
         <Header />
         <ErrorDisplay message={error} />
       </div>
@@ -77,10 +85,10 @@ export default function ProductDetailPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen bg-background">
         <Header />
         <div className="container mx-auto px-4 py-8 flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900 dark:border-gray-100"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
         </div>
       </div>
     )
@@ -88,14 +96,14 @@ export default function ProductDetailPage() {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen bg-background">
         <Header />
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">Product not found</h2>
+            <h2 className="text-2xl font-bold text-foreground">Product not found</h2>
             <button
               onClick={handleBackToList}
-              className="mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600"
+              className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-opacity-90 transition-colors"
             >
               Back to products
             </button>
@@ -105,17 +113,14 @@ export default function ProductDetailPage() {
     )
   }
 
-  // Asegurarnos de que product.options existe antes de acceder a sus propiedades
-  const productOptions = {
-    colors: product.options?.colors || [],
-    storages: product.options?.storages || []
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-background">
       <Header currentPage={`${product.brand} ${product.model}`} />
       <div className="container mx-auto px-4 py-8">
-        <button onClick={handleBackToList} className="mb-6 flex items-center text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200">
+        <button 
+          onClick={handleBackToList} 
+          className="mb-6 flex items-center text-muted-foreground hover:text-foreground transition-colors"
+        >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
             <path
               fillRule="evenodd"
@@ -131,7 +136,10 @@ export default function ProductDetailPage() {
           <div>
             <ProductDescription product={product} />
             <ProductActions
-              options={productOptions}
+              options={{
+                colors: product.options?.colors || [],
+                storages: product.options?.storages || [],
+              }}
               onAddToCart={handleAddToCart}
             />
           </div>

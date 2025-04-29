@@ -1,16 +1,10 @@
 import { useState } from "react"
-import { useTheme } from "../context/ThemeContext"
 
-export default function ProductActions({ options = {}, onAddToCart = () => {} }) {
-  // Asegurarnos de que options.colors y options.storages existan
-  const colors = options?.colors || [];
-  const storages = options?.storages || [];
-  
-  const [selectedColor, setSelectedColor] = useState(colors[0]?.code || null)
-  const [selectedStorage, setSelectedStorage] = useState(storages[0]?.code || null)
+export default function ProductActions({ options = { colors: [], storages: [] }, onAddToCart = () => {} }) {
+  const [selectedColor, setSelectedColor] = useState(options.colors?.[0]?.code || null)
+  const [selectedStorage, setSelectedStorage] = useState(options.storages?.[0]?.code || null)
   const [isLoading, setIsLoading] = useState(false)
-  const { theme } = useTheme() || { theme: 'light' } // Valor por defecto si useTheme devuelve undefined
-  
+
   const handleAddToCart = async () => {
     if (selectedColor !== null && selectedStorage !== null) {
       setIsLoading(true)
@@ -22,66 +16,49 @@ export default function ProductActions({ options = {}, onAddToCart = () => {} })
     }
   }
 
-  // Función para determinar las clases de los botones según el tema y si están seleccionados
-  const getButtonClasses = (isSelected) => {
-    if (theme === 'dark') {
-      return isSelected
-        ? "bg-white text-gray-900 border-white" // En modo oscuro, botón seleccionado es blanco con texto oscuro
-        : "bg-gray-700 text-gray-200 border-gray-600 hover:bg-gray-600"
-    } else {
-      return isSelected
-        ? "bg-gray-900 text-white border-gray-900" // En modo claro, botón seleccionado es oscuro con texto blanco
-        : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
-    }
-  }
-
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-      {storages.length > 0 && (
-        <div className="mb-4">
-          <label htmlFor="storage-select" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Storage</label>
-          <div className="grid grid-cols-2 gap-2" role="group" aria-labelledby="storage-select">
-            {storages.map((storage) => (
-              <button
-                key={storage.code}
-                id={`storage-${storage.code}`}
-                className={`px-4 py-2 border rounded-md text-sm transition-colors ${
-                  getButtonClasses(selectedStorage === storage.code)
-                }`}
-                onClick={() => setSelectedStorage(storage.code)}
-                aria-pressed={selectedStorage === storage.code}
-              >
-                {storage.name}
-              </button>
-            ))}
-          </div>
+    <div className="bg-card rounded-lg shadow-md p-6 border border-border">
+      <div className="mb-4">
+        <label htmlFor="storage-select" className="block text-sm font-medium text-foreground mb-2">Storage</label>
+        <div id="storage-select" className="grid grid-cols-2 gap-2">
+          {(options.storages || []).map((storage) => (
+            <button
+              key={storage.code}
+              className={`px-4 py-2 border rounded-md text-sm transition-colors ${
+                selectedStorage === storage.code
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-card text-foreground border-border hover:bg-muted"
+              }`}
+              onClick={() => setSelectedStorage(storage.code)}
+            >
+              {storage.name}
+            </button>
+          ))}
         </div>
-      )}
+      </div>
 
-      {colors.length > 0 && (
-        <div className="mb-6">
-          <label htmlFor="color-select" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Color</label>
-          <div className="grid grid-cols-2 gap-2" role="group" aria-labelledby="color-select">
-            {colors.map((color) => (
-              <button
-                key={color.code}
-                id={`color-${color.code}`}
-                className={`px-4 py-2 border rounded-md text-sm transition-colors ${
-                  getButtonClasses(selectedColor === color.code)
-                }`}
-                onClick={() => setSelectedColor(color.code)}
-                aria-pressed={selectedColor === color.code}
-              >
-                {color.name}
-              </button>
-            ))}
-          </div>
+      <div className="mb-6">
+        <label htmlFor="color-select" className="block text-sm font-medium text-foreground mb-2">Color</label>
+        <div className="grid grid-cols-2 gap-2">
+          {(options.colors || []).map((color) => (
+            <button
+              key={color.code}
+              className={`px-4 py-2 border rounded-md text-sm transition-colors ${
+                selectedColor === color.code
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-card text-foreground border-border hover:bg-muted"
+              }`}
+              onClick={() => setSelectedColor(color.code)}
+            >
+              {color.name}
+            </button>
+          ))}
         </div>
-      )}
+      </div>
 
       <button
-        className={`w-full py-3 px-4 bg-gray-900 text-white rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:bg-gray-700 dark:hover:bg-gray-600 ${
-          isLoading ? "opacity-70 cursor-not-allowed" : ""
+        className={`w-full py-3 px-4 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
+          isLoading || !selectedColor || !selectedStorage ? "opacity-70 cursor-not-allowed" : ""
         }`}
         onClick={handleAddToCart}
         disabled={isLoading || !selectedColor || !selectedStorage}
@@ -89,7 +66,7 @@ export default function ProductActions({ options = {}, onAddToCart = () => {} })
         {isLoading ? (
           <span className="flex items-center justify-center">
             <svg
-              className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+              className="animate-spin -ml-1 mr-2 h-4 w-4 text-primary-foreground"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"

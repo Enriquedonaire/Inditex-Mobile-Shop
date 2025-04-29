@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Header from "../components/Header"
 import SearchBar from "../components/SearchBar"
-import ProductListPage from "../pages/ProductListPage"
+import ProductList from "../pages/ProductListPage"
 import { fetchProducts } from "../services/api"
 import ErrorDisplay from "../components/ErrorDisplay"
 
@@ -73,7 +73,7 @@ export default function HomePage() {
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900 dark:border-gray-100"></div>
           </div>
         ) : (
-          <ProductListPage products={filteredProducts} onProductClick={handleProductClick} />
+          <ProductList products={filteredProducts} onProductClick={handleProductClick} />
         )}
       </div>
     </main>
