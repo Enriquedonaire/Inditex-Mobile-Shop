@@ -62,6 +62,19 @@ src/
 │   └── ProductListPage.jsx # Componente para la lista de productos
 ├── services/
 │   └── api.js          # Servicios para comunicación con la API
+├── _test/              # Tests unitarios y de integración
+│   ├── api.test.jsx    # Tests para el servicio de API
+│   ├── Cart.test.jsx   # Tests para el componente Cart
+│   ├── CartContext.test.jsx # Tests para el contexto del carrito
+│   ├── CheckoutPage.test.jsx # Tests para la página de checkout
+│   ├── ErrorDisplay.test.jsx # Tests para el componente ErrorDisplay
+│   ├── Header.test.jsx # Tests para el componente Header
+│   ├── NotFound.test.jsx # Tests para la página NotFound
+│   ├── ProductCard.test.jsx # Tests para el componente ProductCard
+│   ├── ProductDescription.test.jsx # Tests para el componente ProductDescription
+│   ├── ProductImage.test.jsx # Tests para el componente ProductImage
+│   ├── ProductListPage.test.jsx # Tests para la página de listado de productos
+│   └── ThemeToggle.test.jsx # Tests para el componente ThemeToggle
 ├── App.jsx             # Componente principal de la aplicación
 ├── index.css           # Estilos globales
 ├── main.jsx           # Punto de entrada de la aplicación
@@ -69,6 +82,7 @@ src/
 ├── vite.config.js      # Configuración de Vite
 ├── tailwind.config.js  # Configuración de Tailwind CSS
 ├── postcss.config.js   # Configuración de PostCSS
+├── jest.config.js      # Configuración de Jest para testing
 ├── package.json        # Dependencias y scripts
 └── README.md           # Documentación del proyecto
 ```
