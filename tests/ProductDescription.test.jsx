@@ -34,4 +34,8 @@ describe('ProductDescription', () => {
     const { container } = render(<ProductDescription product={null} />);
     expect(container.firstChild).toBeNull();
   });
+
+  it('renderiza sin errores', () => {
+    render(<ProductDescription product={{}} />);
+  });
 });

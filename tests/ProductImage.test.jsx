@@ -1,7 +1,12 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import ProductImage from '../src/components/ProductImage';
 
 describe('ProductImage', () => {
+  it('renderiza sin errores', () => {
+    render(<ProductImage />);
+  });
+
   it('renderiza la imagen y el alt', () => {
     render(<ProductImage imageUrl="/test.jpg" alt="Test Alt" />);
     const img = screen.getByAltText('Test Alt');

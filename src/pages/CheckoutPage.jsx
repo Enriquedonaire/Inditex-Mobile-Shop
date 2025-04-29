@@ -5,10 +5,10 @@ import { CreditCard, CheckCircle2, Loader2 } from 'lucide-react'
 import { useCart } from "../context/CartContext"
 
 export default function CheckoutPage() {
-  // Añadir manejo de valores por defecto en la desestructuración
+  
   const { cartItems = [], getCartTotal = () => 0, clearCart = () => {} } = useCart() || {}
   const navigate = useNavigate()
-  const [step, setStep] = useState("checkout") // checkout, processing, success
+  const [step, setStep] = useState("checkout") 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,7 +23,7 @@ export default function CheckoutPage() {
   })
   const [errors, setErrors] = useState({})
 
-  // Si no hay productos en el carrito, redirigir a la página principal
+  
   if (cartItems.length === 0 && typeof window !== "undefined" && step === "checkout") {
     navigate("/")
     return null
@@ -32,9 +32,9 @@ export default function CheckoutPage() {
   const handleChange = (e) => {
     const { name, value } = e.target
 
-    // Formateo específico para campos de tarjeta
+    
     if (name === "cardNumber") {
-      // Permitir solo números y formatear con espacios cada 4 dígitos
+      
       const formatted = value
         .replace(/\s/g, "")
         .replace(/\D/g, "")
@@ -42,14 +42,14 @@ export default function CheckoutPage() {
         .slice(0, 19)
       setFormData({ ...formData, [name]: formatted })
     } else if (name === "expiry") {
-      // Formatear como MM/YY
+      
       const formatted = value
         .replace(/\D/g, "")
         .replace(/(\d{2})(?=\d)/g, "$1/")
         .slice(0, 5)
       setFormData({ ...formData, [name]: formatted })
     } else if (name === "cvc") {
-      // Permitir solo 3-4 dígitos
+      
       const formatted = value.replace(/\D/g, "").slice(0, 4)
       setFormData({ ...formData, [name]: formatted })
     } else {
@@ -60,7 +60,7 @@ export default function CheckoutPage() {
   const validateForm = () => {
     const newErrors = {}
 
-    // Validaciones básicas
+    
     if (!formData.name.trim()) newErrors.name = "Name is required"
     if (!formData.email.trim()) newErrors.email = "Email is required"
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Email is invalid"
@@ -69,7 +69,7 @@ export default function CheckoutPage() {
     if (!formData.zip.trim()) newErrors.zip = "ZIP code is required"
     if (!formData.country.trim()) newErrors.country = "Country is required"
 
-    // Validaciones de tarjeta
+    
     if (!formData.cardNumber.trim()) newErrors.cardNumber = "Card number is required"
     else if (formData.cardNumber.replace(/\s/g, "").length < 16) newErrors.cardNumber = "Card number must be 16 digits"
 
@@ -89,10 +89,10 @@ export default function CheckoutPage() {
     e.preventDefault()
 
     if (validateForm()) {
-      // Simular procesamiento de pago
+      
       setStep("processing")
 
-      // Simular tiempo de procesamiento
+      
       setTimeout(() => {
         setStep("success")
         clearCart()

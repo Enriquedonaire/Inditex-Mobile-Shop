@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext, useContext } from 'react';
 import { CheckCircle, AlertCircle, Info, X } from 'lucide-react';
 
-// Contexto para las notificaciones
+
 const NotificationContext = createContext({
   showNotification: () => {},
 });
@@ -14,7 +14,7 @@ export function NotificationProvider({ children }) {
   const showNotification = ({ type = 'info', title, message, duration = 3000 }) => {
     setNotification({ type, title, message, id: Date.now() });
     
-    // Auto-dismiss after duration
+    
     setTimeout(() => {
       setNotification(null);
     }, duration);
@@ -31,7 +31,7 @@ export function NotificationProvider({ children }) {
 function Notification({ type, title, message, onClose }) {
   useEffect(() => {
     return () => {
-      // Cleanup if needed
+      
     };
   }, []);
   

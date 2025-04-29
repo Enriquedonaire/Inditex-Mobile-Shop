@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect } from "react"
 
-// Asegurarse de que el contexto tenga valores por defecto
+
 const CartContext = createContext({
   cartItems: [],
   cartCount: 0,
@@ -21,7 +21,7 @@ export function CartProvider({ children }) {
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [cartCount, setCartCount] = useState(0)
 
-  // Cargar carrito desde localStorage al iniciar
+  
   useEffect(() => {
     const storedCart = localStorage.getItem("cartItems")
     
@@ -30,7 +30,7 @@ export function CartProvider({ children }) {
         const parsedItems = JSON.parse(storedCart);
         setCartItems(parsedItems);
         
-        // Calcular el contador basado en la cantidad total de productos
+        
         const totalCount = parsedItems.reduce((total, item) => total + item.quantity, 0);
         setCartCount(totalCount);
       } catch (error) {
@@ -41,16 +41,16 @@ export function CartProvider({ children }) {
     }
   }, [])
 
-  // Guardar carrito en localStorage cuando cambie
+  
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems))
     
-    // Actualizar el contador en localStorage
+    
     const totalCount = cartItems.reduce((total, item) => total + item.quantity, 0);
     localStorage.setItem("cartCount", totalCount.toString());
   }, [cartItems])
 
-  // Añadir producto al carrito
+  
   const addToCart = (product, colorCode, storageCode) => {
     const selectedColor = product.options.colors.find((color) => color.code === colorCode)
     const selectedStorage = product.options.storages.find((storage) => storage.code === storageCode)
@@ -70,7 +70,7 @@ export function CartProvider({ children }) {
     }
 
     setCartItems((prevItems) => {
-      // Verificar si el producto ya está en el carrito
+      
       const existingItemIndex = prevItems.findIndex(
         (item) => item.productId === product.id && item.colorCode === colorCode && item.storageCode === storageCode,
       )
@@ -78,15 +78,15 @@ export function CartProvider({ children }) {
       let updatedItems;
       
       if (existingItemIndex >= 0) {
-        // Si existe, incrementar la cantidad
+        
         updatedItems = [...prevItems];
         updatedItems[existingItemIndex].quantity += 1;
       } else {
-        // Si no existe, añadir nuevo item
+        
         updatedItems = [...prevItems, newItem];
       }
       
-      // Calcular el nuevo contador total
+      
       const newTotalCount = updatedItems.reduce((total, item) => total + item.quantity, 0);
       setCartCount(newTotalCount);
       
@@ -96,12 +96,12 @@ export function CartProvider({ children }) {
     setIsCartOpen(true)
   }
 
-  // Eliminar producto del carrito
+  
   const removeFromCart = (itemId) => {
     setCartItems((prevItems) => {
       const updatedItems = prevItems.filter((item) => item.id !== itemId);
       
-      // Calcular el nuevo contador total
+      
       const newTotalCount = updatedItems.reduce((total, item) => total + item.quantity, 0);
       setCartCount(newTotalCount);
       
@@ -109,7 +109,7 @@ export function CartProvider({ children }) {
     })
   }
 
-  // Actualizar cantidad de un producto
+  
   const updateQuantity = (itemId, newQuantity) => {
     if (newQuantity < 1) return
 
@@ -121,7 +121,7 @@ export function CartProvider({ children }) {
         return item;
       });
       
-      // Calcular el nuevo contador total
+      
       const newTotalCount = updatedItems.reduce((total, item) => total + item.quantity, 0);
       setCartCount(newTotalCount);
       
@@ -129,19 +129,19 @@ export function CartProvider({ children }) {
     })
   }
 
-  // Limpiar carrito
+  
   const clearCart = () => {
     setCartItems([])
     setCartCount(0)
     localStorage.setItem("cartCount", "0")
   }
 
-  // Calcular total del carrito
+  
   const getCartTotal = () => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
   }
 
-  // Abrir/cerrar carrito
+  
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen)
   }

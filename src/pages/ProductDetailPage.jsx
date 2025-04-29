@@ -47,10 +47,10 @@ export default function ProductDetailPage() {
     try {
       if (!id || !product) return;
       
-      // Llamar a la API para actualizar el contador global
-      const response = await addToCart(id, colorCode, storageCode)
+      
+      const _response = await addToCart(id, colorCode, storageCode)
 
-      // Añadir al contexto del carrito
+      
       addToCartContext(product, colorCode, storageCode)
 
       showNotification({

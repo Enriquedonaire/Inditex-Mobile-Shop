@@ -81,17 +81,17 @@
   }
 }
 
-/* Eliminar transiciones para cambios de tema */
+
 :root, html, body, .dark {
   transition: none !important;
 }
 
-/* Desactivar transiciones durante cambios de tema */
+
 .disable-transitions * {
   transition: none !important;
 }
 
-/* Estilos para efectos de hover en tarjetas de productos */
+
 .product-image-container {
   background-color: white !important;
   overflow: hidden;
@@ -114,7 +114,7 @@
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
 }
 
-/* Estilos personalizados para notificaciones */
+
 .notification-toast {
   position: fixed;
   top: 50%;
@@ -154,13 +154,13 @@
   100% { opacity: 0; transform: translate(-50%, -60%); }
 }
 
-/* Botones y elementos interactivos pueden mantener sus transiciones */
+
 button:not(.theme-toggle), 
 .interactive-element {
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.2s ease-in-out !important;
 }
 
-/* Asegurar que el fondo de las imágenes sea siempre blanco */
+
 .product-image-bg,
 .product-detail-image,
 [class*="product"] [class*="image"] div,

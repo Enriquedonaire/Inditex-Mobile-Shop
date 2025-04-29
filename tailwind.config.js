@@ -60,7 +60,7 @@ export default {
     },
   },
   plugins: [require("tailwindcss-animate")],
-  // Configuración para desactivar transiciones en ciertos elementos
+  
   variants: {
     extend: {
       transitionProperty: ['responsive', 'motion-safe', 'motion-reduce'],
